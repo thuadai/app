@@ -32,6 +32,8 @@ export interface ExtractedData {
   agriculturalOrigin?: string;
   notes?: string;
   processingDate?: string;
+  transferType?: string;
+  origin?: string;
   
   // Fields for Tách thửa (Subdivision)
   transferArea?: string;
@@ -152,9 +154,9 @@ export async function extractDataFromDocuments(files: File[]): Promise<Extracted
             parcelNumber: { type: Type.STRING, description: "Thửa đất số" },
             mapSheetNumber: { type: Type.STRING, description: "Tờ bản đồ số" },
             landAddress: { type: Type.STRING, description: "Địa chỉ thửa đất" },
-            totalArea: { type: Type.STRING, description: "Tổng diện tích thửa đất (m2)" },
-            residentialArea: { type: Type.STRING, description: "Diện tích đất ở (m2)" },
-            agriculturalArea: { type: Type.STRING, description: "Diện tích đất nông nghiệp / trồng cây lâu năm (m2)" },
+            totalArea: { type: Type.STRING, description: "Tổng diện tích thửa đất (m²)" },
+            residentialArea: { type: Type.STRING, description: "Diện tích đất ở (m²)" },
+            agriculturalArea: { type: Type.STRING, description: "Diện tích đất nông nghiệp / trồng cây lâu năm (m²)" },
             usageForm: { type: Type.STRING, description: "Hình thức sử dụng (VD: riêng)" },
             residentialDuration: { type: Type.STRING, description: "Thời hạn sử dụng đất ở (VD: Lâu dài)" },
             agriculturalDuration: { type: Type.STRING, description: "Thời hạn sử dụng đất nông nghiệp (VD: Đến ngày 21/02/2048)" },
@@ -162,9 +164,9 @@ export async function extractDataFromDocuments(files: File[]): Promise<Extracted
             agriculturalOrigin: { type: Type.STRING, description: "Nguồn gốc sử dụng đất nông nghiệp" },
             notes: { type: Type.STRING, description: "Ghi chú khác (nếu có)" },
             processingDate: { type: Type.STRING, description: "Ngày xử lý hoặc lập biên bản (VD: ngày 15 tháng 08 năm 2026)" },
-            transferArea: { type: Type.STRING, description: "Diện tích chuyển quyền (m2)" },
-            transferResidentialArea: { type: Type.STRING, description: "Diện tích đất ở chuyển quyền (m2)" },
-            transferAgriculturalArea: { type: Type.STRING, description: "Diện tích đất nông nghiệp chuyển quyền (m2)" },
+            transferArea: { type: Type.STRING, description: "Diện tích chuyển quyền (m²)" },
+            transferResidentialArea: { type: Type.STRING, description: "Diện tích đất ở chuyển quyền (m²)" },
+            transferAgriculturalArea: { type: Type.STRING, description: "Diện tích đất nông nghiệp chuyển quyền (m²)" },
             newParcelNumber1: { type: Type.STRING, description: "Thửa đất số mới 1 (phần chuyển quyền)" },
             newMapSheetNumber1: { type: Type.STRING, description: "Tờ bản đồ số mới 1" },
             newLandAddress1: { type: Type.STRING, description: "Địa chỉ thửa đất mới 1" },
@@ -176,15 +178,15 @@ export async function extractDataFromDocuments(files: File[]): Promise<Extracted
             newParcelNumber2: { type: Type.STRING, description: "Thửa đất số mới 2 (phần còn lại)" },
             newMapSheetNumber2: { type: Type.STRING, description: "Tờ bản đồ số mới 2" },
             newLandAddress2: { type: Type.STRING, description: "Địa chỉ thửa đất mới 2" },
-            remainingArea: { type: Type.STRING, description: "Diện tích còn lại (m2)" },
-            remainingResidentialArea: { type: Type.STRING, description: "Diện tích đất ở còn lại (m2)" },
-            remainingAgriculturalArea: { type: Type.STRING, description: "Diện tích đất nông nghiệp còn lại (m2)" },
+            remainingArea: { type: Type.STRING, description: "Diện tích còn lại (m²)" },
+            remainingResidentialArea: { type: Type.STRING, description: "Diện tích đất ở còn lại (m²)" },
+            remainingAgriculturalArea: { type: Type.STRING, description: "Diện tích đất nông nghiệp còn lại (m²)" },
             newUsageForm2: { type: Type.STRING, description: "Hình thức sử dụng mới 2" },
             newResidentialDuration2: { type: Type.STRING, description: "Thời hạn sử dụng đất ở mới 2" },
             newAgriculturalDuration2: { type: Type.STRING, description: "Thời hạn sử dụng đất nông nghiệp mới 2" },
             newResidentialOrigin2: { type: Type.STRING, description: "Nguồn gốc sử dụng đất ở mới 2" },
             newAgriculturalOrigin2: { type: Type.STRING, description: "Nguồn gốc sử dụng đất nông nghiệp mới 2" },
-            areaChangeNotes: { type: Type.STRING, description: "Ghi chú về biến động diện tích (VD: Giảm 21,6 m2 so với GCN đã được cấp...)" },
+            areaChangeNotes: { type: Type.STRING, description: "Ghi chú về biến động diện tích (VD: Giảm 21,6 m² so với GCN đã được cấp...)" },
           },
         },
       },

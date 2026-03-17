@@ -96,7 +96,7 @@ export async function exportToWord(
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
-                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày      tháng      năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                         spacing: { before: 120 },
                       }),
@@ -178,14 +178,14 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "- Diện tích thửa đất: " }),
               new TextRun({ text: data.totalArea || "1174,6" }),
-              new TextRun({ text: " m2. Trong đó:" }),
+              new TextRun({ text: " m². Trong đó:" }),
             ],
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "+ Đất ở tại nông thôn: " }),
+              new TextRun({ text: "+ Đất ở tại: " }),
               new TextRun({ text: data.residentialArea || "200,0" }),
-              new TextRun({ text: " m2;" }),
+              new TextRun({ text: " m²;" }),
             ],
             indent: { left: 720 },
           }),
@@ -193,7 +193,7 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất trồng cây lâu năm: " }),
               new TextRun({ text: data.agriculturalArea || "874,6" }),
-              new TextRun({ text: " m2" }),
+              new TextRun({ text: " m²" }),
             ],
             indent: { left: 720 },
           }),
@@ -227,7 +227,7 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất ở " }),
               new TextRun({ text: data.residentialArea || "200,0" }),
-              new TextRun({ text: " m2: " }),
+              new TextRun({ text: " m²: " }),
               new TextRun({ text: data.residentialOrigin || "Công nhận QSD đất như giao đất có thu tiền sử dụng đất" }),
             ],
             indent: { left: 720 },
@@ -236,7 +236,7 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất trồng cây lâu năm " }),
               new TextRun({ text: data.agriculturalArea || "874,6" }),
-              new TextRun({ text: " m2: " }),
+              new TextRun({ text: " m²: " }),
               new TextRun({ text: data.agriculturalOrigin || "Công nhận QSD đất như giao đất không thu tiền sử dụng đất." }),
             ],
             indent: { left: 720 },
@@ -247,21 +247,31 @@ export async function exportToWord(
               new TextRun({ text: data.buyerName || "........................................" }),
               new TextRun({ text: " nhận chuyển quyền 1 phần thửa đất nói trên với diện tích " }),
               new TextRun({ text: data.transferArea || ".........." }),
-              new TextRun({ text: " m2 trong đó đất ở: " }),
+              new TextRun({ text: " m² trong đó đất ở: " }),
               new TextRun({ text: data.transferResidentialArea || ".........." }),
-              new TextRun({ text: " m2, đất trồng cây lâu năm " }),
+              new TextRun({ text: " m², đất trồng cây lâu năm " }),
               new TextRun({ text: data.transferAgriculturalArea || ".........." }),
-              new TextRun({ text: " m2" }),
+              new TextRun({ text: " m²" }),
             ],
             spacing: { before: 200, after: 200 },
           }),
-          new Paragraph({
-            children: [
-              new TextRun({ text: "Ghi chú: ", bold: true, italics: true }),
-              new TextRun({ text: data.notes || "Thửa đất có 401,0 m2 nằm trong chỉ giới QHGT", italics: true }),
-            ],
-            spacing: { after: 200 },
-          }),
+          ...(data.notes ? data.notes.split('\n').map((line, index) => 
+            new Paragraph({
+              children: [
+                ...(index === 0 ? [new TextRun({ text: "Ghi chú: ", bold: true, italics: true })] : []),
+                new TextRun({ text: line, italics: true }),
+              ],
+              spacing: index === data.notes!.split('\n').length - 1 ? { after: 200 } : {},
+            })
+          ) : [
+            new Paragraph({
+              children: [
+                new TextRun({ text: "Ghi chú: ", bold: true, italics: true }),
+                new TextRun({ text: "Thửa đất có 401,0 m² nằm trong chỉ giới QHGT", italics: true }),
+              ],
+              spacing: { after: 200 },
+            })
+          ]),
           new Paragraph({
             children: [
               new TextRun({ text: "- Thông tin tài sản: Có nhà ở", bold: true }),
@@ -282,13 +292,13 @@ export async function exportToWord(
           new Paragraph({
             children: [
               new TextRun({ text: "- Về hình thức chuyển quyền: ", bold: true, italics: true }),
-              new TextRun({ text: "Cho tặng QSD đất" }),
+              new TextRun({ text: `${data.transferType === 'chuyen-nhuong' ? 'Chuyển nhượng' : data.transferType === 'tang-cho' ? 'Tặng cho' : 'Chuyển quyền'} QSD đất` }),
             ],
           }),
           new Paragraph({
             children: [
               new TextRun({ text: "- Về diện tích thửa đất chuyển quyền: ", bold: true, italics: true }),
-              new TextRun({ text: data.areaChangeNotes || "Giảm 21,6 m2 so với GCN đã được cấp có nguyên nhân do chủ sử dụng đất hiến đất mở rộng đường giao thông theo bản vẽ tách thửa đất được Chi nhánh Văn phòng Đăng ký đất đai huyện Kỳ Anh xác nhận ngày 22/12/2025; chỉ giới QHGT có thay đổi theo Quyết định số 1387/QĐ-UBND ngày 18/6/2025 của UBND huyện Kỳ Anh." }),
+              new TextRun({ text: data.areaChangeNotes || "Giảm 21,6 m² so với GCN đã được cấp có nguyên nhân do chủ sử dụng đất hiến đất mở rộng đường giao thông theo bản vẽ tách thửa đất được Chi nhánh Văn phòng Đăng ký đất đai huyện Kỳ Anh xác nhận ngày 22/12/2025; chỉ giới QHGT có thay đổi theo Quyết định số 1387/QĐ-UBND ngày 18/6/2025 của UBND huyện Kỳ Anh." }),
             ],
           }),
           new Paragraph({
@@ -348,14 +358,14 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "- Diện tích thửa đất: " }),
               new TextRun({ text: data.transferArea || ".........." }),
-              new TextRun({ text: " m2. Trong đó:" }),
+              new TextRun({ text: " m². Trong đó:" }),
             ],
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "+ Đất ở tại nông thôn: " }),
+              new TextRun({ text: "+ Đất ở tại: " }),
               new TextRun({ text: data.transferResidentialArea || ".........." }),
-              new TextRun({ text: " m2;" }),
+              new TextRun({ text: " m²;" }),
             ],
             indent: { left: 720 },
           }),
@@ -363,7 +373,7 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất trồng cây lâu năm: " }),
               new TextRun({ text: data.transferAgriculturalArea || ".........." }),
-              new TextRun({ text: " m2" }),
+              new TextRun({ text: " m²" }),
             ],
             indent: { left: 720 },
           }),
@@ -397,7 +407,7 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất ở " }),
               new TextRun({ text: data.transferResidentialArea || ".........." }),
-              new TextRun({ text: " m2: " }),
+              new TextRun({ text: " m²: " }),
               new TextRun({ text: data.newResidentialOrigin1 || "................................................................................" }),
             ],
             indent: { left: 720 },
@@ -406,7 +416,7 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất trồng cây lâu năm " }),
               new TextRun({ text: data.transferAgriculturalArea || ".........." }),
-              new TextRun({ text: " m2: " }),
+              new TextRun({ text: " m²: " }),
               new TextRun({ text: data.newAgriculturalOrigin1 || "................................................................................" }),
             ],
             indent: { left: 720 },
@@ -445,14 +455,14 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "- Diện tích thửa đất: " }),
               new TextRun({ text: data.remainingArea || ".........." }),
-              new TextRun({ text: " m2. Trong đó:" }),
+              new TextRun({ text: " m². Trong đó:" }),
             ],
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "+ Đất ở tại nông thôn: " }),
+              new TextRun({ text: "+ Đất ở tại: " }),
               new TextRun({ text: data.remainingResidentialArea || ".........." }),
-              new TextRun({ text: " m2;" }),
+              new TextRun({ text: " m²;" }),
             ],
             indent: { left: 720 },
           }),
@@ -460,7 +470,7 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất trồng cây lâu năm: " }),
               new TextRun({ text: data.remainingAgriculturalArea || ".........." }),
-              new TextRun({ text: " m2" }),
+              new TextRun({ text: " m²" }),
             ],
             indent: { left: 720 },
           }),
@@ -494,7 +504,7 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất ở " }),
               new TextRun({ text: data.remainingResidentialArea || ".........." }),
-              new TextRun({ text: " m2: " }),
+              new TextRun({ text: " m²: " }),
               new TextRun({ text: data.newResidentialOrigin2 || "................................................................................" }),
             ],
             indent: { left: 720 },
@@ -503,7 +513,7 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất trồng cây lâu năm " }),
               new TextRun({ text: data.remainingAgriculturalArea || ".........." }),
-              new TextRun({ text: " m2: " }),
+              new TextRun({ text: " m²: " }),
               new TextRun({ text: data.newAgriculturalOrigin2 || "................................................................................" }),
             ],
             indent: { left: 720 },
@@ -607,7 +617,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày ...... tháng ...... năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ngày      tháng     năm 2026`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
@@ -631,7 +641,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày ...... tháng ...... năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ngày      tháng     năm 2026`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({

@@ -199,8 +199,16 @@ export default function TabChuyenQuyenThuaKe() {
                     <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Thông tin chung</h4>
                     <div className="grid grid-cols-1 gap-3">
                       <div>
-                        <label className="block text-xs text-slate-500 mb-1">Tên người nhận chuyển quyền (Bên mua)</label>
+                        <label className="block text-xs text-slate-500 mb-1">Tên người chuyển quyền (Bên bán/cho/để lại thừa kế)</label>
+                        <input type="text" name="sellerName" value={extractedData.sellerName || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-slate-500 mb-1">Tên người nhận chuyển quyền (Bên mua/nhận)</label>
                         <input type="text" name="buyerName" value={extractedData.buyerName || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-slate-500 mb-1">Địa chỉ người nhận chuyển quyền</label>
+                        <input type="text" name="buyerAddress" value={extractedData.buyerAddress || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none" />
                       </div>
                       <div>
                         <label className="block text-xs text-slate-500 mb-1">Ngày xử lý / lập biên bản</label>
@@ -234,15 +242,15 @@ export default function TabChuyenQuyenThuaKe() {
                       </div>
                       <div className="col-span-2 grid grid-cols-3 gap-3">
                         <div>
-                          <label className="block text-xs text-slate-500 mb-1">Tổng diện tích (m2)</label>
+                          <label className="block text-xs text-slate-500 mb-1">Tổng diện tích (m<sup>2</sup>)</label>
                           <input type="text" name="totalArea" value={extractedData.totalArea || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none" />
                         </div>
                         <div>
-                          <label className="block text-xs text-slate-500 mb-1">Đất ở (m2)</label>
+                          <label className="block text-xs text-slate-500 mb-1">Đất ở (m<sup>2</sup>)</label>
                           <input type="text" name="residentialArea" value={extractedData.residentialArea || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none" />
                         </div>
                         <div>
-                          <label className="block text-xs text-slate-500 mb-1">Đất NN (m2)</label>
+                          <label className="block text-xs text-slate-500 mb-1">Đất NN (m<sup>2</sup>)</label>
                           <input type="text" name="agriculturalArea" value={extractedData.agriculturalArea || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none" />
                         </div>
                       </div>
@@ -263,6 +271,10 @@ export default function TabChuyenQuyenThuaKe() {
                       <div>
                         <label className="block text-xs text-slate-500 mb-1">Thời hạn sử dụng đất nông nghiệp</label>
                         <input type="text" name="agriculturalDuration" value={extractedData.agriculturalDuration || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none" />
+                      </div>
+                      <div className="col-span-2">
+                        <label className="block text-xs text-slate-500 mb-1">Nguồn gốc sử dụng chung</label>
+                        <input type="text" name="origin" value={extractedData.origin || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none" />
                       </div>
                       <div className="col-span-2">
                         <label className="block text-xs text-slate-500 mb-1">Nguồn gốc sử dụng đất ở</label>
@@ -391,7 +403,7 @@ export default function TabChuyenQuyenThuaKe() {
                       <p className="font-bold whitespace-nowrap" style={{ fontSize: `${previewFontSize - 1}pt` }}>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
                       <p className="font-bold border-b-[1.5px] border-black pb-0.5 inline-block whitespace-nowrap" style={{ fontSize: `${previewFontSize}pt` }}>Độc lập - Tự do - Hạnh phúc</p>
                       <p className="italic mt-2 whitespace-nowrap" style={{ fontSize: `${previewFontSize}pt` }}>
-                        Kỳ Anh, {extractedData?.processingDate || "ngày ...... tháng ...... năm 2026"}
+                        Kỳ Anh, {extractedData?.processingDate || "ngày      tháng     năm 2026"}
                       </p>
                     </div>
                   </div>
@@ -402,21 +414,21 @@ export default function TabChuyenQuyenThuaKe() {
                   </div>
 
                   <p className="mb-2 text-justify indent-8">
-                    Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của bà <span className="font-semibold">{extractedData?.buyerName || "Nguyễn Thị Luyn"}</span> nhận thừa kế QSD đất tại <span className="font-semibold">{extractedData?.landAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh"}</span>. Sau khi thẩm định hồ sơ, Chi nhánh Văn phòng ĐKĐĐ huyện Kỳ Anh báo cáo kết quả như sau:
+                    Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của ông <span className="font-semibold">{extractedData?.sellerName || "Nguyễn Văn A"}</span> và bà <span className="font-semibold">{extractedData?.sellerName || "Trần Thị B"}</span> sử dụng đất tại <span className="font-semibold">{extractedData?.landAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh"}</span> chuyển quyền sử dụng đất cho ông <span className="font-semibold">{extractedData?.buyerName || "Nguyễn Văn C"}</span> và bà <span className="font-semibold">{extractedData?.buyerName || "Lê Thị D"}</span>, thường trú tại <span className="font-semibold">{extractedData?.buyerAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh"}</span>. Sau khi thẩm định hồ sơ, Chi nhánh Văn phòng ĐKĐĐ huyện Kỳ Anh báo cáo kết quả như sau:
                   </p>
 
                   <p className="font-bold mb-1">1. Thành phần hồ sơ gồm:</p>
                   <p className="mb-1">- Đơn đăng ký biến động đất đai, tài sản gắn liền với đất;</p>
-                  <p className="mb-1">- Hợp đồng chuyển quyền SD đất đã được UBND xã Kỳ Anh công chứng, chứng thực.</p>
-                  <p className="mb-2">- Giấy chứng nhận QSD đất số phát hành: <span className="font-semibold">{extractedData?.gcnNumber || "BX 617651"}</span> do <span className="font-bold">UBND huyện Kỳ Anh</span> cấp ngày: <span className="font-bold">{extractedData?.gcnDate || "20/01/2015"}</span>.</p>
+                  <p className="mb-1">- Hợp đồng chuyển quyền SD đất đã được <span className="font-semibold">UBND xã Kỳ Anh</span> công chứng, chứng thực.</p>
+                  <p className="mb-2">- Giấy chứng nhận QSD đất số phát hành: <span className="font-semibold">{extractedData?.gcnNumber || "BX 617651"}</span> do <span className="font-semibold">UBND huyện Kỳ Anh</span> cấp ngày: <span className="font-semibold">{extractedData?.gcnDate || "20/01/2015"}</span>.</p>
 
                   <p className="font-bold mb-1">2. Thông tin thửa đất chuyển quyền:</p>
                   <p className="mb-1">- Thửa đất số: <span className="font-semibold">{extractedData?.parcelNumber || "89"}</span>; tờ bản đồ số: <span className="font-semibold">{extractedData?.mapSheetNumber || "51"}</span>;</p>
                   <p className="mb-1">- Địa chỉ thửa đất: <span className="font-semibold">{extractedData?.landAddress || "Thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh"}</span>;</p>
-                  <p className="mb-1">- Diện tích thửa đất: <span className="font-semibold">{extractedData?.totalArea || "1835,9"}</span> m2. Trong đó:</p>
-                  <p className="mb-1 ml-8">+ Đất ở tại nông thôn: <span className="font-semibold">{extractedData?.residentialArea || "1796,7"}</span> m2;</p>
-                  <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || "39,2"}</span> m2</p>
-                  <p className="mb-1">- Hình thức sử dụng: <span className="font-semibold">{extractedData?.usageForm || "riêng"}</span>.</p>
+                  <p className="mb-1">- Diện tích thửa đất: <span className="font-semibold">{extractedData?.totalArea || "1835,9"}</span> m<sup>2</sup>. Trong đó:</p>
+                  <p className="mb-1 ml-8">+ Đất ở tại: <span className="font-semibold">{extractedData?.residentialArea || "1796,7"}</span> m<sup>2</sup>;</p>
+                  <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || "39,2"}</span> m<sup>2</sup></p>
+                  <p className="mb-1">- Hình thức sử dụng: <span className="font-semibold">{extractedData?.usageForm || "Chung (riêng)"}</span>.</p>
                   <div className="mb-1 flex items-start">
                     <div className="shrink-0 mr-2">- Thời hạn sử dụng đất:</div>
                     <div className="flex-1">
@@ -424,28 +436,28 @@ export default function TabChuyenQuyenThuaKe() {
                       <p>+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalDuration || "Đến ngày 15/10/2043"}</span>.</p>
                     </div>
                   </div>
-                  <p className="mb-1">- Nguồn gốc sử dụng:</p>
-                  <p className="mb-1 ml-8">+ Đất ở: <span className="font-semibold">{extractedData?.residentialArea || "1796,7"}</span> m2: <span className="font-semibold">{extractedData?.residentialOrigin || "Nhận thừa kế đất được Công nhận QSD đất như giao đất có thu tiền sử dụng đất"}</span></p>
-                  <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || "39,2"}</span> m2: <span className="font-semibold">{extractedData?.agriculturalOrigin || "Nhận thừa kế đất được Công nhận QSD đất như giao đất không thu tiền sử dụng đất."}</span></p>
-                  <p className="mb-4"><span className="font-bold text-red-600 italic">Ghi chú:</span> <span className="text-red-600">{extractedData?.notes || "Số thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp"}</span></p>
+                  <p className="mb-1">- Nguồn gốc sử dụng: <span className="font-semibold">{extractedData?.origin || "Nhận thừa kế đất được"}</span></p>
+                  <p className="mb-1 ml-8">+ Đất ở: <span className="font-semibold">{extractedData?.residentialArea || "1796,7"}</span> m<sup>2</sup>: <span className="font-semibold">{extractedData?.residentialOrigin || ""}</span></p>
+                  <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || "39,2"}</span> m<sup>2</sup>: <span className="font-semibold">{extractedData?.agriculturalOrigin || ""}</span></p>
+                  <p className="mb-4"><span className="font-bold italic text-red-600">Ghi chú:</span> <span className="italic whitespace-pre-line text-red-600">{extractedData?.notes || "Thửa đất có 132,2 m2 nằm trong chỉ giới QHGT\nTheo Giấy xác nhận tình trạng hôn nhân số 99/UBND-XNTTHN ngày 13/7/2023 của UBND xã Kỳ Khang, thửa đất là tài sản riêng của bà Nguyễn Thị Nga.\nTheo Văn bản thỏa thuận về tài sản riêng của vợ chồng trong thời kỳ hôn nhân số 2160/2025, quyển số 01/TP/CC-SCC/HĐGD/VBTT của Văn phòng Công chứng Kỳ Anh chứng thực ngày 08/5/2025, thửa đất là tài sản riêng của ông (bà) Phạm Thái Hà.\nThửa đất chưa được xác định là tài sản riêng\nSố thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp"}</span></p>
 
-                  <p className="font-bold mb-2">- Thông tin tài sản:</p>
+                  <p className="font-bold mb-2">- Thông tin tài sản: .</p>
 
                   <p className="font-bold mb-1">3. Kết quả thẩm định:</p>
                   <p className="mb-1"><span className="font-bold italic">- Về thành phần hồ sơ:</span> Đầy đủ theo bộ thủ tục hành chính của UBND tỉnh.</p>
-                  <p className="mb-1"><span className="font-bold italic">- Về hình thức chuyển quyền:</span> <span className="font-bold">Thừa kế QSD đất</span></p>
+                  <p className="mb-1"><span className="font-bold italic">- Về hình thức chuyển quyền:</span> <span className="font-bold">{extractedData?.transferType === 'chuyen-nhuong' ? 'Chuyển nhượng' : extractedData?.transferType === 'tang-cho' ? 'Tặng cho' : 'Thừa kế'} QSD đất</span></p>
                   <p className="mb-1"><span className="font-bold italic">- Về diện tích thửa đất chuyển quyền:</span> Không thay đổi so với GCN đã cấp</p>
                   <p className="mb-1"><span className="font-bold italic">- Về tính pháp lý, điều kiện thực hiện chuyển quyền:</span></p>
-                  <p className="mb-1 ml-8">+ Thửa đất đã được UBND huyện Kỳ Anh cấp giấy chứng nhận quyền sử dụng đất;</p>
+                  <p className="mb-1 ml-8">+ Thửa đất đã được cấp giấy chứng nhận quyền sử dụng đất;</p>
                   <p className="mb-1 ml-8 text-justify">+ Về tình trạng tranh chấp: Đến thời điểm hiện tại, Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh chưa nhận được Đơn, văn bản nào phản ánh tình trạng tranh chấp liên quan đến thửa đất;</p>
                   <p className="mb-1 ml-8 text-justify">+ Quyền sử dụng đất không bị kê biên, áp dụng biện pháp khác để bảo đảm thi hành án theo quy định của pháp luật thi hành án dân sự;</p>
                   <p className="mb-1 ml-8">+ Đang trong thời hạn sử dụng đất.</p>
-                  <p className="mb-1 ml-8">+ Quyền sử dụng đất không bị áp dụng biện pháp khẩn cấp tạm thời theo quy định của pháp luật</p>
+                  <p className="mb-1 ml-8 text-justify">+ Quyền sử dụng đất không bị áp dụng biện pháp khẩn cấp tạm thời theo quy định của pháp luật</p>
                   <p className="mb-4 text-justify"><span className="font-bold italic">- Về thực hiện nghĩa vụ tài chính:</span> Người sử dụng đất đã thực hiện đầy đủ nghĩa vụ tài chính theo thông báo của cơ quan thuế (có chứng từ kèm theo).</p>
 
                   <p className="font-bold mb-1">4. Kiến nghị:</p>
                   <p className="mb-8 text-justify indent-8">
-                    Hồ sơ đủ điều kiện chuyển quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo Điều 45 Luật Đất đai năm 2024 và các quy định khác của pháp luật. Kính đề nghị Văn phòng đăng ký đất đai tỉnh Hà Tĩnh thẩm tra hồ sơ, trình ký cấp Giấy chứng nhận QSD đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất cho bà <span className="font-semibold">{extractedData?.buyerName || "Nguyễn Thị Luyn"}</span> theo quy định pháp luật./.
+                    Hồ sơ đủ điều kiện chuyển quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo Điều 45 Luật Đất đai năm 2024 và các quy định khác của pháp luật. Kính đề nghị Văn phòng đăng ký đất đai tỉnh Hà Tĩnh thẩm tra hồ sơ, trình ký cấp Giấy chứng nhận QSD đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất cho ông <span className="font-semibold">{extractedData?.buyerName || "Nguyễn Văn C"}</span> và bà <span className="font-semibold">{extractedData?.buyerName || "Lê Thị D"}</span> theo quy định pháp luật./.
                   </p>
 
                   <div className="flex justify-between text-center mb-16 mt-8 break-inside-avoid">
@@ -475,13 +487,13 @@ export default function TabChuyenQuyenThuaKe() {
 
                   <div className="flex justify-between text-center mt-8 break-inside-avoid">
                     <div className="w-1/2 flex flex-col items-center">
-                      <p className="italic">Hà Tĩnh, {extractedData?.processingDate || "ngày ...... tháng ...... năm 2026"}</p>
+                      <p className="italic">Hà Tĩnh, "ngày      tháng     năm 2026"</p>
                       <p className="font-bold">Người thẩm tra</p>
                       <div className="h-24"></div>
                       <p className="font-bold"> </p>
                     </div>
                     <div className="w-1/2 flex flex-col items-center">
-                      <p className="italic">Hà Tĩnh, {extractedData?.processingDate || "ngày ...... tháng ...... năm 2026"}</p>
+                      <p className="italic">Hà Tĩnh, "ngày      tháng     năm 2026"</p>
                       <p className="font-bold">Người phụ trách</p>
                       <div className="h-24"></div>
                       <p className="font-bold"></p>
@@ -587,7 +599,7 @@ export default function TabChuyenQuyenThuaKe() {
                     <p className="font-bold whitespace-nowrap" style={{ fontSize: `${previewFontSize - 1}pt` }}>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
                     <p className="font-bold border-b-[1.5px] border-black pb-0.5 inline-block whitespace-nowrap" style={{ fontSize: `${previewFontSize}pt` }}>Độc lập - Tự do - Hạnh phúc</p>
                     <p className="italic mt-2 whitespace-nowrap" style={{ fontSize: `${previewFontSize}pt` }}>
-                      Kỳ Anh, {extractedData?.processingDate || "ngày ...... tháng ...... năm 2026"}
+                      Kỳ Anh, "ngày      tháng     năm 2026"
                     </p>
                   </div>
                 </div>
@@ -598,21 +610,21 @@ export default function TabChuyenQuyenThuaKe() {
                 </div>
 
                 <p className="mb-2 text-justify indent-8">
-                  Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của bà <span className="font-semibold">{extractedData?.buyerName || "Nguyễn Thị Luyn"}</span> nhận thừa kế QSD đất tại <span className="font-semibold">{extractedData?.landAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh"}</span>. Sau khi thẩm định hồ sơ, Chi nhánh Văn phòng ĐKĐĐ huyện Kỳ Anh báo cáo kết quả như sau:
+                  Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của ông <span className="font-semibold">{extractedData?.sellerName || "Nguyễn Văn A"}</span> và bà <span className="font-semibold">{extractedData?.sellerName || "Trần Thị B"}</span> sử dụng đất tại <span className="font-semibold">{extractedData?.landAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh"}</span> chuyển quyền sử dụng đất cho ông <span className="font-semibold">{extractedData?.buyerName || "Nguyễn Văn C"}</span> và bà <span className="font-semibold">{extractedData?.buyerName || "Lê Thị D"}</span>, thường trú tại <span className="font-semibold">{extractedData?.buyerAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh"}</span>. Sau khi thẩm định hồ sơ, Chi nhánh Văn phòng ĐKĐĐ huyện Kỳ Anh báo cáo kết quả như sau:
                 </p>
 
                 <p className="font-bold mb-1">1. Thành phần hồ sơ gồm:</p>
                 <p className="mb-1">- Đơn đăng ký biến động đất đai, tài sản gắn liền với đất;</p>
-                <p className="mb-1">- Hợp đồng chuyển quyền SD đất đã được UBND xã Kỳ Anh công chứng, chứng thực.</p>
-                <p className="mb-2">- Giấy chứng nhận QSD đất số phát hành: <span className="font-semibold">{extractedData?.gcnNumber || "BX 617651"}</span> do <span className="font-bold">UBND huyện Kỳ Anh</span> cấp ngày: <span className="font-bold">{extractedData?.gcnDate || "20/01/2015"}</span>.</p>
+                <p className="mb-1">- Hợp đồng chuyển quyền SD đất đã được <span className="font-semibold">UBND xã Kỳ Anh</span> công chứng, chứng thực.</p>
+                <p className="mb-2">- Giấy chứng nhận QSD đất số phát hành: <span className="font-semibold">{extractedData?.gcnNumber || "BX 617651"}</span> do <span className="font-semibold">UBND huyện Kỳ Anh</span> cấp ngày: <span className="font-semibold">{extractedData?.gcnDate || "20/01/2015"}</span>.</p>
 
                 <p className="font-bold mb-1">2. Thông tin thửa đất chuyển quyền:</p>
                 <p className="mb-1">- Thửa đất số: <span className="font-semibold">{extractedData?.parcelNumber || "89"}</span>; tờ bản đồ số: <span className="font-semibold">{extractedData?.mapSheetNumber || "51"}</span>;</p>
                 <p className="mb-1">- Địa chỉ thửa đất: <span className="font-semibold">{extractedData?.landAddress || "Thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh"}</span>;</p>
-                <p className="mb-1">- Diện tích thửa đất: <span className="font-semibold">{extractedData?.totalArea || "1835,9"}</span> m2. Trong đó:</p>
-                <p className="mb-1 ml-8">+ Đất ở tại nông thôn: <span className="font-semibold">{extractedData?.residentialArea || "1796,7"}</span> m2;</p>
-                <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || "39,2"}</span> m2</p>
-                <p className="mb-1">- Hình thức sử dụng: <span className="font-semibold">{extractedData?.usageForm || "riêng"}</span>.</p>
+                <p className="mb-1">- Diện tích thửa đất: <span className="font-semibold">{extractedData?.totalArea || "1835,9"}</span> m<sup>2</sup>. Trong đó:</p>
+                <p className="mb-1 ml-8">+ Đất ở tại: <span className="font-semibold">{extractedData?.residentialArea || "1796,7"}</span> m<sup>2</sup>;</p>
+                <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || "39,2"}</span> m<sup>2</sup></p>
+                <p className="mb-1">- Hình thức sử dụng: <span className="font-semibold">{extractedData?.usageForm || "Chung (riêng)"}</span>.</p>
                 <div className="mb-1 flex items-start">
                   <div className="shrink-0 mr-2">- Thời hạn sử dụng đất:</div>
                   <div className="flex-1">
@@ -620,28 +632,28 @@ export default function TabChuyenQuyenThuaKe() {
                     <p>+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalDuration || "Đến ngày 15/10/2043"}</span>.</p>
                   </div>
                 </div>
-                <p className="mb-1">- Nguồn gốc sử dụng:</p>
-                <p className="mb-1 ml-8">+ Đất ở: <span className="font-semibold">{extractedData?.residentialArea || "1796,7"}</span> m2: <span className="font-semibold">{extractedData?.residentialOrigin || "Nhận thừa kế đất được Công nhận QSD đất như giao đất có thu tiền sử dụng đất"}</span></p>
-                <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || "39,2"}</span> m2: <span className="font-semibold">{extractedData?.agriculturalOrigin || "Nhận thừa kế đất được Công nhận QSD đất như giao đất không thu tiền sử dụng đất."}</span></p>
-                <p className="mb-4"><span className="font-bold text-red-600 italic">Ghi chú:</span> <span className="text-red-600">{extractedData?.notes || "Số thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp"}</span></p>
+                <p className="mb-1">- Nguồn gốc sử dụng: <span className="font-semibold">{extractedData?.origin || "Nhận thừa kế đất được"}</span></p>
+                <p className="mb-1 ml-8">+ Đất ở: <span className="font-semibold">{extractedData?.residentialArea || "1796,7"}</span> m<sup>2</sup>: <span className="font-semibold">{extractedData?.residentialOrigin || ""}</span></p>
+                <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || "39,2"}</span> m<sup>2</sup>: <span className="font-semibold">{extractedData?.agriculturalOrigin || ""}</span></p>
+                <p className="mb-4"><span className="font-bold italic text-red-600">Ghi chú:</span> <span className="italic whitespace-pre-line text-red-600">{extractedData?.notes || "Thửa đất có 132,2 m2 nằm trong chỉ giới QHGT\nTheo Giấy xác nhận tình trạng hôn nhân số 99/UBND-XNTTHN ngày 13/7/2023 của UBND xã Kỳ Khang, thửa đất là tài sản riêng của bà Nguyễn Thị Nga.\nTheo Văn bản thỏa thuận về tài sản riêng của vợ chồng trong thời kỳ hôn nhân số 2160/2025, quyển số 01/TP/CC-SCC/HĐGD/VBTT của Văn phòng Công chứng Kỳ Anh chứng thực ngày 08/5/2025, thửa đất là tài sản riêng của ông (bà) Phạm Thái Hà.\nThửa đất chưa được xác định là tài sản riêng\nSố thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp"}</span></p>
 
-                <p className="font-bold mb-2">- Thông tin tài sản:</p>
+                <p className="font-bold mb-2">- Thông tin tài sản: .</p>
 
                 <p className="font-bold mb-1">3. Kết quả thẩm định:</p>
                 <p className="mb-1"><span className="font-bold italic">- Về thành phần hồ sơ:</span> Đầy đủ theo bộ thủ tục hành chính của UBND tỉnh.</p>
-                <p className="mb-1"><span className="font-bold italic">- Về hình thức chuyển quyền:</span> <span className="font-bold">Thừa kế QSD đất</span></p>
+                <p className="mb-1"><span className="font-bold italic">- Về hình thức chuyển quyền:</span> <span className="font-bold">{extractedData?.transferType === 'chuyen-nhuong' ? 'Chuyển nhượng' : extractedData?.transferType === 'tang-cho' ? 'Tặng cho' : 'Thừa kế'} QSD đất</span></p>
                 <p className="mb-1"><span className="font-bold italic">- Về diện tích thửa đất chuyển quyền:</span> Không thay đổi so với GCN đã cấp</p>
                 <p className="mb-1"><span className="font-bold italic">- Về tính pháp lý, điều kiện thực hiện chuyển quyền:</span></p>
-                <p className="mb-1 ml-8">+ Thửa đất đã được UBND huyện Kỳ Anh cấp giấy chứng nhận quyền sử dụng đất;</p>
+                <p className="mb-1 ml-8">+ Thửa đất đã được cấp giấy chứng nhận quyền sử dụng đất;</p>
                 <p className="mb-1 ml-8 text-justify">+ Về tình trạng tranh chấp: Đến thời điểm hiện tại, Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh chưa nhận được Đơn, văn bản nào phản ánh tình trạng tranh chấp liên quan đến thửa đất;</p>
                 <p className="mb-1 ml-8 text-justify">+ Quyền sử dụng đất không bị kê biên, áp dụng biện pháp khác để bảo đảm thi hành án theo quy định của pháp luật thi hành án dân sự;</p>
                 <p className="mb-1 ml-8">+ Đang trong thời hạn sử dụng đất.</p>
-                <p className="mb-1 ml-8">+ Quyền sử dụng đất không bị áp dụng biện pháp khẩn cấp tạm thời theo quy định của pháp luật</p>
+                <p className="mb-1 ml-8 text-justify">+ Quyền sử dụng đất không bị áp dụng biện pháp khẩn cấp tạm thời theo quy định của pháp luật</p>
                 <p className="mb-4 text-justify"><span className="font-bold italic">- Về thực hiện nghĩa vụ tài chính:</span> Người sử dụng đất đã thực hiện đầy đủ nghĩa vụ tài chính theo thông báo của cơ quan thuế (có chứng từ kèm theo).</p>
 
                 <p className="font-bold mb-1">4. Kiến nghị:</p>
                 <p className="mb-8 text-justify indent-8">
-                  Hồ sơ đủ điều kiện chuyển quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo Điều 45 Luật Đất đai năm 2024 và các quy định khác của pháp luật. Kính đề nghị Văn phòng đăng ký đất đai tỉnh Hà Tĩnh thẩm tra hồ sơ, trình ký cấp Giấy chứng nhận QSD đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất cho bà <span className="font-semibold">{extractedData?.buyerName || "Nguyễn Thị Luyn"}</span> theo quy định pháp luật./.
+                  Hồ sơ đủ điều kiện chuyển quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo Điều 45 Luật Đất đai năm 2024 và các quy định khác của pháp luật. Kính đề nghị Văn phòng đăng ký đất đai tỉnh Hà Tĩnh thẩm tra hồ sơ, trình ký cấp Giấy chứng nhận QSD đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất cho ông <span className="font-semibold">{extractedData?.buyerName || "Nguyễn Văn C"}</span> và bà <span className="font-semibold">{extractedData?.buyerName || "Lê Thị D"}</span> theo quy định pháp luật./.
                 </p>
 
                 <div className="flex justify-between text-center mb-16 mt-8 break-inside-avoid">
@@ -671,13 +683,13 @@ export default function TabChuyenQuyenThuaKe() {
 
                 <div className="flex justify-between text-center mt-8 break-inside-avoid">
                   <div className="w-1/2 flex flex-col items-center">
-                    <p className="italic">Hà Tĩnh, {extractedData?.processingDate || "ngày ...... tháng ...... năm 2026"}</p>
+                    <p className="italic">Hà Tĩnh, "ngày      tháng     năm 2026"</p>
                     <p className="font-bold">Người thẩm tra</p>
                     <div className="h-24"></div>
                     <p className="font-bold"> </p>
                   </div>
                   <div className="w-1/2 flex flex-col items-center">
-                    <p className="italic">Hà Tĩnh, {extractedData?.processingDate || "ngày ...... tháng ...... năm 2026"}</p>
+                    <p className="italic">Hà Tĩnh, "ngày      tháng     năm 2026"</p>
                     <p className="font-bold">Người phụ trách</p>
                     <div className="h-24"></div>
                     <p className="font-bold"></p>

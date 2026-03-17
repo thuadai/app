@@ -96,7 +96,7 @@ export async function exportToWord(
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
-                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày      tháng      năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                         spacing: { before: 120 },
                       }),
@@ -124,9 +124,19 @@ export async function exportToWord(
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: `Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của bà ` }),
-              new TextRun({ text: data.buyerName || "Nguyễn Thị Luyn", bold: true }),
-              new TextRun({ text: ` nhận thừa kế QSD đất tại ${data.landAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh"}. Sau khi thẩm định hồ sơ, Chi nhánh Văn phòng ĐKĐĐ huyện Kỳ Anh báo cáo kết quả như sau:` }),
+              new TextRun({ text: `Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của ông ` }),
+              new TextRun({ text: data.sellerName || "Nguyễn Văn A", bold: true }),
+              new TextRun({ text: ` và bà ` }),
+              new TextRun({ text: data.sellerName || "Trần Thị B", bold: true }),
+              new TextRun({ text: ` sử dụng đất tại ` }),
+              new TextRun({ text: data.landAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh", bold: true }),
+              new TextRun({ text: ` chuyển quyền sử dụng đất cho ông ` }),
+              new TextRun({ text: data.buyerName || "Nguyễn Văn C", bold: true }),
+              new TextRun({ text: ` và bà ` }),
+              new TextRun({ text: data.buyerName || "Lê Thị D", bold: true }),
+              new TextRun({ text: `, thường trú tại ` }),
+              new TextRun({ text: data.buyerAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh", bold: true }),
+              new TextRun({ text: `. Sau khi thẩm định hồ sơ, Chi nhánh Văn phòng ĐKĐĐ huyện Kỳ Anh báo cáo kết quả như sau:` }),
             ],
             indent: { firstLine: 720 },
             spacing: { after: 200 },
@@ -137,11 +147,17 @@ export async function exportToWord(
             ],
           }),
           new Paragraph({ text: "- Đơn đăng ký biến động đất đai, tài sản gắn liền với đất;" }),
-          new Paragraph({ text: "- Hợp đồng chuyển quyền SD đất đã được UBND xã Kỳ Anh công chứng, chứng thực." }),
+          new Paragraph({
+            children: [
+              new TextRun({ text: "- Hợp đồng chuyển quyền SD đất đã được " }),
+              new TextRun({ text: "UBND xã Kỳ Anh", bold: true }),
+              new TextRun({ text: " công chứng, chứng thực." }),
+            ]
+          }),
           new Paragraph({
             children: [
               new TextRun({ text: "- Giấy chứng nhận QSD đất số phát hành: " }),
-              new TextRun({ text: data.gcnNumber || "BX 617651" }),
+              new TextRun({ text: data.gcnNumber || "BX 617651", bold: true }),
               new TextRun({ text: " do " }),
               new TextRun({ text: "UBND huyện Kỳ Anh", bold: true }),
               new TextRun({ text: " cấp ngày: " }),
@@ -175,14 +191,14 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "- Diện tích thửa đất: " }),
               new TextRun({ text: data.totalArea || "1835,9" }),
-              new TextRun({ text: " m2. Trong đó:" }),
+              new TextRun({ text: " m². Trong đó:" }),
             ],
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "+ Đất ở tại nông thôn: " }),
+              new TextRun({ text: "+ Đất ở tại: " }),
               new TextRun({ text: data.residentialArea || "1796,7" }),
-              new TextRun({ text: " m2;" }),
+              new TextRun({ text: " m²;" }),
             ],
             indent: { left: 720 },
           }),
@@ -190,14 +206,14 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất trồng cây lâu năm: " }),
               new TextRun({ text: data.agriculturalArea || "39,2" }),
-              new TextRun({ text: " m2" }),
+              new TextRun({ text: " m²" }),
             ],
             indent: { left: 720 },
           }),
           new Paragraph({
             children: [
               new TextRun({ text: "- Hình thức sử dụng: " }),
-              new TextRun({ text: data.usageForm || "riêng" }),
+              new TextRun({ text: data.usageForm || "Chung (riêng)" }),
               new TextRun({ text: "." }),
             ],
           }),
@@ -217,15 +233,16 @@ export async function exportToWord(
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "- Nguồn gốc sử dụng:" }),
+              new TextRun({ text: "- Nguồn gốc sử dụng: " }),
+              new TextRun({ text: data.origin || "Nhận thừa kế đất được" }),
             ],
           }),
           new Paragraph({
             children: [
               new TextRun({ text: "+ Đất ở: " }),
               new TextRun({ text: data.residentialArea || "1796,7" }),
-              new TextRun({ text: " m2: " }),
-              new TextRun({ text: data.residentialOrigin || "Nhận thừa kế đất được Công nhận QSD đất như giao đất có thu tiền sử dụng đất" }),
+              new TextRun({ text: " m²: " }),
+              new TextRun({ text: data.residentialOrigin || "" }),
             ],
             indent: { left: 720 },
           }),
@@ -233,25 +250,31 @@ export async function exportToWord(
             children: [
               new TextRun({ text: "+ Đất trồng cây lâu năm: " }),
               new TextRun({ text: data.agriculturalArea || "39,2" }),
-              new TextRun({ text: " m2: " }),
-              new TextRun({ text: data.agriculturalOrigin || "Nhận thừa kế đất được Công nhận QSD đất như giao đất không thu tiền sử dụng đất." }),
+              new TextRun({ text: " m²: " }),
+              new TextRun({ text: data.agriculturalOrigin || "" }),
             ],
             indent: { left: 720 },
           }),
+          ...(data.notes ? data.notes.split('\n').map((line, index) => 
+            new Paragraph({
+              children: [
+                ...(index === 0 ? [new TextRun({ text: "Ghi chú: ", bold: true, italics: true })] : []),
+                new TextRun({ text: line, italics: true }),
+              ],
+              spacing: index === data.notes!.split('\n').length - 1 ? { after: 200 } : {},
+            })
+          ) : [
+            new Paragraph({
+              children: [
+                new TextRun({ text: "Ghi chú: ", bold: true, italics: true }),
+                new TextRun({ text: "Số thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp", italics: true }),
+              ],
+              spacing: { after: 200 },
+            })
+          ]),
           new Paragraph({
             children: [
-              new TextRun({ text: "Ghi chú: ", bold: true, color: "FF0000", italics: true }),
-            ]
-          }),
-          new Paragraph({
-            children: [
-              new TextRun({ text: data.notes || "Số thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp", color: "FF0000" }),
-            ],
-            spacing: { after: 200 },
-          }),
-          new Paragraph({
-            children: [
-              new TextRun({ text: "- Thông tin tài sản:", bold: true }),
+              new TextRun({ text: "- Thông tin tài sản: Có nhà ở", bold: true }),
             ],
             spacing: { after: 200 },
           }),
@@ -269,7 +292,7 @@ export async function exportToWord(
           new Paragraph({
             children: [
               new TextRun({ text: "- Về hình thức chuyển quyền: ", bold: true, italics: true }),
-              new TextRun({ text: "Thừa kế QSD đất", bold: true }),
+              new TextRun({ text: `${data.transferType === 'chuyen-nhuong' ? 'Chuyển nhượng' : data.transferType === 'tang-cho' ? 'Tặng cho' : 'Thừa kế'} QSD đất`, bold: true }),
             ],
           }),
           new Paragraph({
@@ -285,8 +308,9 @@ export async function exportToWord(
           }),
           new Paragraph({ text: "+ Thửa đất đã được UBND huyện Kỳ Anh cấp giấy chứng nhận quyền sử dụng đất;", indent: { left: 720 } }),
           new Paragraph({ text: "+ Về tình trạng tranh chấp: Đến thời điểm hiện tại, Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh chưa nhận được Đơn, văn bản nào phản ánh tình trạng tranh chấp liên quan đến thửa đất;", indent: { left: 720 } }),
-          new Paragraph({ text: "+ Quyền sử dụng đất không bị kê biên, áp dụng biện pháp khác để bảo đảm thi hành án theo quy định của pháp luật thi hành án dân sự;", indent: { left: 720 } }),
+          new Paragraph({ text: "+ Quyền sử dụng đất không bị kê biên để thi hành án;", indent: { left: 720 } }),
           new Paragraph({ text: "+ Đang trong thời hạn sử dụng đất.", indent: { left: 720 } }),
+          new Paragraph({ text: "+ Quyền sử dụng đất không bị kê biên, áp dụng biện pháp khác để bảo đảm thi hành án theo quy định của pháp luật thi hành án dân sự;", indent: { left: 720 } }),
           new Paragraph({ text: "+ Quyền sử dụng đất không bị áp dụng biện pháp khẩn cấp tạm thời theo quy định của pháp luật", indent: { left: 720 } }),
           new Paragraph({
             children: [
@@ -301,7 +325,13 @@ export async function exportToWord(
             ],
           }),
           new Paragraph({
-            text: "Hồ sơ đủ điều kiện chuyển quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo Điều 45 Luật Đất đai năm 2024 và các quy định khác của pháp luật. Kính đề nghị Văn phòng đăng ký đất đai tỉnh Hà Tĩnh thẩm tra hồ sơ, trình ký cấp Giấy chứng nhận QSD đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất cho bà " + (data.buyerName || "Nguyễn Thị Luyn") + " theo quy định pháp luật./.",
+            children: [
+              new TextRun({ text: "Hồ sơ đủ điều kiện chuyển quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo Điều 45 Luật Đất đai năm 2024 và các quy định khác của pháp luật. Kính đề nghị Văn phòng đăng ký đất đai tỉnh Hà Tĩnh thẩm tra hồ sơ, trình ký cấp Giấy chứng nhận QSD đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất cho ông " }),
+              new TextRun({ text: data.buyerName || "Nguyễn Văn C", bold: true }),
+              new TextRun({ text: " và bà " }),
+              new TextRun({ text: data.buyerName || "Lê Thị D", bold: true }),
+              new TextRun({ text: " theo quy định pháp luật./." }),
+            ],
             indent: { firstLine: 720 },
             spacing: { after: 400 },
           }),
@@ -397,7 +427,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày ...... tháng ...... năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ngày      tháng     năm 2026`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
@@ -421,7 +451,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày ...... tháng ...... năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ngày      tháng     năm 2026`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({

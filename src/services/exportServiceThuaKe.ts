@@ -96,7 +96,7 @@ export async function exportToWord(
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
-                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "    /      / 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                         spacing: { before: 120 },
                       }),
@@ -124,18 +124,10 @@ export async function exportToWord(
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: `Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của ông ` }),
-              new TextRun({ text: data.sellerName || "Nguyễn Văn A", bold: true }),
-              new TextRun({ text: ` và bà ` }),
-              new TextRun({ text: data.sellerName || "Trần Thị B", bold: true }),
-              new TextRun({ text: ` sử dụng đất tại ` }),
+              new TextRun({ text: `Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của ` }),
+              new TextRun({ text: data.buyerName || "bà Nguyễn Thị Luyn", bold: true }),
+              new TextRun({ text: ` nhận thừa kế QSD đất tại ` }),
               new TextRun({ text: data.landAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh", bold: true }),
-              new TextRun({ text: ` chuyển quyền sử dụng đất cho ông ` }),
-              new TextRun({ text: data.buyerName || "Nguyễn Văn C", bold: true }),
-              new TextRun({ text: ` và bà ` }),
-              new TextRun({ text: data.buyerName || "Lê Thị D", bold: true }),
-              new TextRun({ text: `, thường trú tại ` }),
-              new TextRun({ text: data.buyerAddress || "thôn Đồng Trụ Đông, xã Kỳ Anh, tỉnh Hà Tĩnh", bold: true }),
               new TextRun({ text: `. Sau khi thẩm định hồ sơ, Chi nhánh Văn phòng ĐKĐĐ huyện Kỳ Anh báo cáo kết quả như sau:` }),
             ],
             indent: { firstLine: 720 },
@@ -292,7 +284,7 @@ export async function exportToWord(
           new Paragraph({
             children: [
               new TextRun({ text: "- Về hình thức chuyển quyền: ", bold: true, italics: true }),
-              new TextRun({ text: `${data.transferType === 'chuyen-nhuong' ? 'Chuyển nhượng' : data.transferType === 'tang-cho' ? 'Tặng cho' : 'Thừa kế'} QSD đất`, bold: true }),
+              new TextRun({ text: "Thừa kế QSD đất", bold: true }),
             ],
           }),
           new Paragraph({
@@ -326,10 +318,8 @@ export async function exportToWord(
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "Hồ sơ đủ điều kiện chuyển quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo Điều 45 Luật Đất đai năm 2024 và các quy định khác của pháp luật. Kính đề nghị Văn phòng đăng ký đất đai tỉnh Hà Tĩnh thẩm tra hồ sơ, trình ký cấp Giấy chứng nhận QSD đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất cho ông " }),
-              new TextRun({ text: data.buyerName || "Nguyễn Văn C", bold: true }),
-              new TextRun({ text: " và bà " }),
-              new TextRun({ text: data.buyerName || "Lê Thị D", bold: true }),
+              new TextRun({ text: "Hồ sơ đủ điều kiện chuyển quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất theo Điều 45 Luật Đất đai năm 2024 và các quy định khác của pháp luật. Kính đề nghị Văn phòng đăng ký đất đai tỉnh Hà Tĩnh thẩm tra hồ sơ, trình ký cấp Giấy chứng nhận QSD đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất cho " }),
+              new TextRun({ text: data.buyerName || "bà Nguyễn Thị Luyn", bold: true }),
               new TextRun({ text: " theo quy định pháp luật./." }),
             ],
             indent: { firstLine: 720 },
@@ -427,7 +417,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ngày      tháng     năm 2026`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "    /      / 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
@@ -451,7 +441,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ngày      tháng     năm 2026`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "    /      / 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({

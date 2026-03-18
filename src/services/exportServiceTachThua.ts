@@ -124,9 +124,9 @@ export async function exportToWord(
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: `Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của ông: ` }),
+              new TextRun({ text: `Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của ông (bà): ` }),
               new TextRun({ text: data.sellerName || "Dương Văn Sơn và bà: Tô Thị Thơ", bold: true }),
-              new TextRun({ text: ` sử dụng đất tại ${data.landAddress || "thôn Đồng Tiến, xã Kỳ Anh, huyện Kỳ Anh, tỉnh Hà Tĩnh"} chuyển quyền sử dụng đất cho ông/bà ` }),
+              new TextRun({ text: ` sử dụng đất tại ${data.landAddress || "thôn Đồng Tiến, xã Kỳ Anh, huyện Kỳ Anh, tỉnh Hà Tĩnh"} chuyển quyền sử dụng đất cho ông (bà) ` }),
               new TextRun({ text: data.buyerName || "Dương Chí Công và bà Nguyễn Thị Thúy", bold: true }),
               new TextRun({ text: `, thường trú tại ${data.buyerAddress || "xã Kỳ Anh, tỉnh Hà Tĩnh"}. Sau khi thẩm định hồ sơ, Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh báo cáo kết quả như sau:` }),
             ],
@@ -333,9 +333,11 @@ export async function exportToWord(
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "+ Cấp giấy chứng nhận QSD đất cho ông/bà " }),
+              new TextRun({ text: "+ Cấp giấy chứng nhận QSD đất cho ông " }),
               new TextRun({ text: data.buyerName || "........................................", bold: true }),
-              new TextRun({ text: " như sau:", bold: true }),
+              new TextRun({ text: " và bà ", }),
+              new TextRun({ text: "........................................", bold: true }),
+              new TextRun({ text: " như sau:" }),
             ],
           }),
           new Paragraph({
@@ -430,9 +432,11 @@ export async function exportToWord(
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "+ Cấp giấy chứng nhận QSD đất cho ông/bà " }),
+              new TextRun({ text: "+ Cấp giấy chứng nhận QSD đất cho ông " }),
               new TextRun({ text: data.sellerName || "........................................", bold: true }),
-              new TextRun({ text: " như sau:", bold: true }),
+              new TextRun({ text: " và bà ", }),
+              new TextRun({ text: "........................................", bold: true }),
+              new TextRun({ text: " như sau:" }),
             ],
           }),
           new Paragraph({
@@ -617,7 +621,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ngày      tháng     năm 2026`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
@@ -641,7 +645,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ngày      tháng     năm 2026`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({

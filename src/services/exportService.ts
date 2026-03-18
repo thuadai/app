@@ -96,7 +96,7 @@ export async function exportToWord(
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
-                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày      tháng      năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                         spacing: { before: 120 },
                       }),
@@ -124,11 +124,11 @@ export async function exportToWord(
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: `Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của ông/bà ` }),
+              new TextRun({ text: `Chi nhánh Văn phòng đăng ký đất đai huyện Kỳ Anh tiếp nhận hồ sơ của ông (bà) ` }),
               new TextRun({ text: data.sellerName || "........................................", bold: true }),
               new TextRun({ text: ` sử dụng đất tại ` }),
               new TextRun({ text: data.landAddress || "thôn ................, xã ................, tỉnh Hà Tĩnh", bold: true }),
-              new TextRun({ text: ` chuyển quyền sử dụng đất cho ông/bà ` }),
+              new TextRun({ text: ` chuyển quyền sử dụng đất cho ông (bà) ` }),
               new TextRun({ text: data.buyerName || "........................................", bold: true }),
               new TextRun({ text: `, thường trú tại ` }),
               new TextRun({ text: data.buyerAddress || "........................................, tỉnh Hà Tĩnh", bold: true }),
@@ -398,7 +398,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày ...... tháng ...... năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
@@ -422,7 +422,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày ...... tháng ...... năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({

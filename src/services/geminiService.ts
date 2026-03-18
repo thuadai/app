@@ -163,7 +163,7 @@ export async function extractDataFromDocuments(files: File[]): Promise<Extracted
             residentialOrigin: { type: Type.STRING, description: "Nguồn gốc sử dụng đất ở" },
             agriculturalOrigin: { type: Type.STRING, description: "Nguồn gốc sử dụng đất nông nghiệp" },
             notes: { type: Type.STRING, description: "Ghi chú khác (nếu có)" },
-            processingDate: { type: Type.STRING, description: "Ngày xử lý hoặc lập biên bản (VD: ngày 15 tháng 08 năm 2026)" },
+            processingDate: { type: Type.STRING, description: "Ngày xử lý hoặc lập biên bản (VD: 15/08/2026)" },
             transferArea: { type: Type.STRING, description: "Diện tích chuyển quyền (m²)" },
             transferResidentialArea: { type: Type.STRING, description: "Diện tích đất ở chuyển quyền (m²)" },
             transferAgriculturalArea: { type: Type.STRING, description: "Diện tích đất nông nghiệp chuyển quyền (m²)" },
@@ -195,8 +195,29 @@ export async function extractDataFromDocuments(files: File[]): Promise<Extracted
     const jsonStr = response.text?.trim() || "{}";
     const data = JSON.parse(jsonStr) as ExtractedData;
     return data;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error extracting data:", error);
-    throw error;
+    let userMessage = "Lỗi không xác định. Vui lòng thử lại.";
+    
+    if (error?.message) {
+      const msg = error.message.toLowerCase();
+      if (msg.includes("fetch") || msg.includes("network")) {
+        userMessage = "Lỗi kết nối mạng. Vui lòng kiểm tra lại đường truyền internet.";
+      } else if (msg.includes("api key") || msg.includes("unauthorized") || msg.includes("401") || msg.includes("403")) {
+        userMessage = "Lỗi xác thực API. Vui lòng kiểm tra lại API Key trong cài đặt.";
+      } else if (msg.includes("quota") || msg.includes("429") || msg.includes("exhausted")) {
+        userMessage = "Đã vượt quá giới hạn sử dụng AI. Vui lòng thử lại sau.";
+      } else if (msg.includes("json") || msg.includes("parse") || msg.includes("syntax")) {
+        userMessage = "Không thể đọc được dữ liệu từ tài liệu này. Vui lòng đảm bảo hình ảnh/PDF rõ nét.";
+      } else if (msg.includes("timeout")) {
+        userMessage = "Quá thời gian chờ phản hồi từ AI. Vui lòng thử lại.";
+      } else {
+        userMessage = error.message;
+      }
+    }
+    
+    const customError = new Error(userMessage) as any;
+    customError.details = error?.message || "Không có chi tiết lỗi.";
+    throw customError;
   }
 }

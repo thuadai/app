@@ -11,6 +11,15 @@ export async function exportToWord(
   // Convert mm to twips (1 mm = 56.6929 twips)
   const mmToTwips = (mm: number) => Math.round(mm * 56.6929);
 
+  // Replace m2 with m² in all string fields
+  const processedData: any = { ...data };
+  for (const key in processedData) {
+    if (typeof processedData[key] === 'string') {
+      processedData[key] = processedData[key].replace(/m2/g, 'm²');
+    }
+  }
+  data = processedData as ExtractedData;
+
   const doc = new Document({
     styles: {
       default: {
@@ -96,7 +105,7 @@ export async function exportToWord(
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
-                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày       tháng       năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                         spacing: { before: 120 },
                       }),
@@ -143,12 +152,20 @@ export async function exportToWord(
             ],
           }),
           new Paragraph({ text: "- Đơn đăng ký biến động đất đai, tài sản gắn liền với đất;" }),
-          new Paragraph({ text: "- Hợp đồng chuyển quyền SD đất đã được ........................ công chứng, chứng thực." }),
+          new Paragraph({
+            children: [
+              new TextRun({ text: "- Hợp đồng chuyển quyền SD đất đã được " }),
+              new TextRun({ text: data.notaryOffice || "........................", bold: true }),
+              new TextRun({ text: " công chứng, chứng thực." }),
+            ],
+          }),
           new Paragraph({
             children: [
               new TextRun({ text: "- Giấy chứng nhận QSD đất số phát hành: " }),
               new TextRun({ text: data.gcnNumber || "........................", bold: true }),
-              new TextRun({ text: " do ........................ cấp ngày: " }),
+              new TextRun({ text: " do " }),
+              new TextRun({ text: data.gcnIssuer || "........................", bold: true }),
+              new TextRun({ text: " cấp ngày: " }),
               new TextRun({ text: data.gcnDate || "........................", bold: true }),
               new TextRun({ text: "." }),
             ],
@@ -243,13 +260,15 @@ export async function exportToWord(
             ],
             indent: { left: 720 },
           }),
-          new Paragraph({
-            children: [
-              new TextRun({ text: "Ghi chú: ", bold: true, color: "FF0000" }),
-              new TextRun({ text: data.notes || "Thửa đất có 132,2 m2 nằm trong chỉ giới QHGT\nTheo Giấy xác nhận tình trạng hôn nhân số 99/UBND-XNTTHN ngày 13/7/2023 của UBND xã Kỳ Khang, thửa đất là tài sản riêng của bà Nguyễn Thị Nga.\nTheo Văn bản thỏa thuận về tài sản riêng của vợ chồng trong thời kỳ hôn nhân số 2160/2025, quyển số 01/TP/CC-SCC/HĐGD/VBTT của Văn phòng Công chứng Kỳ Anh chứng thực ngày 08/5/2025, thửa đất là tài sản riêng của ông (bà) Phạm Thái Hà.\nThửa đất chưa được xác định là tài sản riêng\nSố thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp", color: "FF0000", italics: true }),
-            ],
-            spacing: { after: 200 },
-          }),
+          ...((data.notes || "Thửa đất có 132,2 m² nằm trong chỉ giới QHGT\nTheo Giấy xác nhận tình trạng hôn nhân số 99/UBND-XNTTHN ngày 13/7/2023 của UBND xã Kỳ Khang, thửa đất là tài sản riêng của bà Nguyễn Thị Nga.\nTheo Văn bản thỏa thuận về tài sản riêng của vợ chồng trong thời kỳ hôn nhân số 2160/2025, quyển số 01/TP/CC-SCC/HĐGD/VBTT của Văn phòng Công chứng Kỳ Anh chứng thực ngày 08/5/2025, thửa đất là tài sản riêng của ông (bà) Phạm Thái Hà.\nThửa đất chưa được xác định là tài sản riêng\nSố thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp").split('\n').map((line, index, arr) => 
+            new Paragraph({
+              children: [
+                ...(index === 0 ? [new TextRun({ text: "Ghi chú: ", bold: true, color: "FF0000" })] : []),
+                new TextRun({ text: line, color: "FF0000", italics: true }),
+              ],
+              spacing: index === arr.length - 1 ? { after: 200 } : {},
+            })
+          )),
           new Paragraph({
             children: [
               new TextRun({ text: "- Thông tin tài sản: ................................................................................................", bold: true }),
@@ -398,7 +417,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày       tháng       năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({
@@ -422,7 +441,7 @@ export async function exportToWord(
                     },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: `Hà Tĩnh, ${data.processingDate || "ngày      tháng     năm 2026"}`, italics: true })],
+                        children: [new TextRun({ text: `Kỳ Anh, ${data.processingDate || "ngày       tháng       năm 2026"}`, italics: true })],
                         alignment: AlignmentType.CENTER,
                       }),
                       new Paragraph({

@@ -32,6 +32,7 @@ export interface ExtractedData {
   agriculturalOrigin?: string;
   notes?: string;
   processingDate?: string;
+  notaryOffice?: string;
   transferType?: string;
   origin?: string;
   
@@ -137,7 +138,7 @@ export async function extractDataFromDocuments(files: File[]): Promise<Extracted
       contents: [
         ...parts,
         {
-          text: "Trích xuất các thông tin sau từ các tài liệu tải lên để điền vào Biên bản thẩm định hồ sơ: Tên người chuyển quyền (bên bán), Tên người nhận chuyển quyền (bên mua), Địa chỉ thường trú người nhận, Số phát hành Giấy chứng nhận QSD đất, Ngày cấp GCN, Thửa đất số, Tờ bản đồ số, Địa chỉ thửa đất, Tổng diện tích, Diện tích đất ở, Diện tích đất trồng cây lâu năm (hoặc loại đất nông nghiệp khác), Hình thức sử dụng, Thời hạn sử dụng đất ở, Thời hạn sử dụng đất nông nghiệp, Nguồn gốc sử dụng đất ở, Nguồn gốc sử dụng đất nông nghiệp, Ngày xử lý/lập biên bản (nếu có), và các Ghi chú (nếu có). \n\nNếu là hồ sơ TÁCH THỬA, trích xuất thêm: Diện tích chuyển quyền (transferArea), Diện tích đất ở chuyển quyền (transferResidentialArea), Diện tích đất NN chuyển quyền (transferAgriculturalArea), Thửa đất số mới 1 (newParcelNumber1), Tờ bản đồ số mới 1 (newMapSheetNumber1), Địa chỉ thửa đất mới 1 (newLandAddress1), Hình thức sử dụng mới 1 (newUsageForm1), Thời hạn đất ở mới 1 (newResidentialDuration1), Thời hạn đất NN mới 1 (newAgriculturalDuration1), Nguồn gốc đất ở mới 1 (newResidentialOrigin1), Nguồn gốc đất NN mới 1 (newAgriculturalOrigin1), Thửa đất số mới 2 (newParcelNumber2), Tờ bản đồ số mới 2 (newMapSheetNumber2), Địa chỉ thửa đất mới 2 (newLandAddress2), Diện tích còn lại (remainingArea), Diện tích đất ở còn lại (remainingResidentialArea), Diện tích đất NN còn lại (remainingAgriculturalArea), Hình thức sử dụng mới 2 (newUsageForm2), Thời hạn đất ở mới 2 (newResidentialDuration2), Thời hạn đất NN mới 2 (newAgriculturalDuration2), Nguồn gốc đất ở mới 2 (newResidentialOrigin2), Nguồn gốc đất NN mới 2 (newAgriculturalOrigin2), Ghi chú biến động diện tích (areaChangeNotes). Trả về dưới dạng JSON.",
+          text: "Trích xuất các thông tin sau từ các tài liệu tải lên để điền vào Biên bản thẩm định hồ sơ: Tên người chuyển quyền (bên bán), Tên người nhận chuyển quyền (bên mua), Địa chỉ thường trú người nhận, Số phát hành Giấy chứng nhận QSD đất, Ngày cấp GCN, Cơ quan cấp GCN, Thửa đất số, Tờ bản đồ số, Địa chỉ thửa đất, Tổng diện tích, Diện tích đất ở, Diện tích đất trồng cây lâu năm (hoặc loại đất nông nghiệp khác), Hình thức sử dụng, Thời hạn sử dụng đất ở, Thời hạn sử dụng đất nông nghiệp, Nguồn gốc sử dụng đất ở, Nguồn gốc sử dụng đất nông nghiệp, Ngày xử lý/lập biên bản (nếu có), Cơ quan công chứng (nếu có), và các Ghi chú (nếu có). \n\nNếu là hồ sơ TÁCH THỬA, trích xuất thêm: Diện tích chuyển quyền (transferArea), Diện tích đất ở chuyển quyền (transferResidentialArea), Diện tích đất NN chuyển quyền (transferAgriculturalArea), Thửa đất số mới 1 (newParcelNumber1), Tờ bản đồ số mới 1 (newMapSheetNumber1), Địa chỉ thửa đất mới 1 (newLandAddress1), Hình thức sử dụng mới 1 (newUsageForm1), Thời hạn đất ở mới 1 (newResidentialDuration1), Thời hạn đất NN mới 1 (newAgriculturalDuration1), Nguồn gốc đất ở mới 1 (newResidentialOrigin1), Nguồn gốc đất NN mới 1 (newAgriculturalOrigin1), Thửa đất số mới 2 (newParcelNumber2), Tờ bản đồ số mới 2 (newMapSheetNumber2), Địa chỉ thửa đất mới 2 (newLandAddress2), Diện tích còn lại (remainingArea), Diện tích đất ở còn lại (remainingResidentialArea), Diện tích đất NN còn lại (remainingAgriculturalArea), Hình thức sử dụng mới 2 (newUsageForm2), Thời hạn đất ở mới 2 (newResidentialDuration2), Thời hạn đất NN mới 2 (newAgriculturalDuration2), Nguồn gốc đất ở mới 2 (newResidentialOrigin2), Nguồn gốc đất NN mới 2 (newAgriculturalOrigin2), Ghi chú biến động diện tích (areaChangeNotes). Trả về dưới dạng JSON.",
         },
       ],
       config: {
@@ -151,6 +152,7 @@ export async function extractDataFromDocuments(files: File[]): Promise<Extracted
             buyerAddress: { type: Type.STRING, description: "Địa chỉ thường trú của người nhận chuyển quyền" },
             gcnNumber: { type: Type.STRING, description: "Giấy chứng nhận QSD đất số phát hành (VD: AA 03396047)" },
             gcnDate: { type: Type.STRING, description: "Ngày cấp Giấy chứng nhận" },
+            gcnIssuer: { type: Type.STRING, description: "Cơ quan cấp Giấy chứng nhận (VD: UBND huyện Kỳ Anh, Sở Tài nguyên và Môi trường)" },
             parcelNumber: { type: Type.STRING, description: "Thửa đất số" },
             mapSheetNumber: { type: Type.STRING, description: "Tờ bản đồ số" },
             landAddress: { type: Type.STRING, description: "Địa chỉ thửa đất" },
@@ -162,8 +164,9 @@ export async function extractDataFromDocuments(files: File[]): Promise<Extracted
             agriculturalDuration: { type: Type.STRING, description: "Thời hạn sử dụng đất nông nghiệp (VD: Đến ngày 21/02/2048)" },
             residentialOrigin: { type: Type.STRING, description: "Nguồn gốc sử dụng đất ở" },
             agriculturalOrigin: { type: Type.STRING, description: "Nguồn gốc sử dụng đất nông nghiệp" },
-            notes: { type: Type.STRING, description: "Ghi chú khác (nếu có)" },
-            processingDate: { type: Type.STRING, description: "Ngày xử lý hoặc lập biên bản (VD: 15/08/2026)" },
+            notes: { type: Type.STRING, description: "Ghi chú khác (nếu có). Mẫu chung: Thửa đất có [diện tích] m² nằm trong chỉ giới QHGT. Theo [Giấy tờ], thửa đất là tài sản riêng của [Tên]. Thửa đất chưa được xác định là tài sản riêng. Số thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính [Địa danh] trước khi sắp xếp." },
+            processingDate: { type: Type.STRING, description: "Ngày xử lý hoặc lập biên bản (VD: ngày 15 tháng 08 năm 2026)" },
+            notaryOffice: { type: Type.STRING, description: "Cơ quan công chứng, chứng thực hợp đồng chuyển quyền (VD: UBND xã Kỳ Anh)" },
             transferArea: { type: Type.STRING, description: "Diện tích chuyển quyền (m²)" },
             transferResidentialArea: { type: Type.STRING, description: "Diện tích đất ở chuyển quyền (m²)" },
             transferAgriculturalArea: { type: Type.STRING, description: "Diện tích đất nông nghiệp chuyển quyền (m²)" },

@@ -229,7 +229,11 @@ export default function TabChuyenQuyen() {
                       </div>
                       <div>
                         <label className="block text-xs text-slate-500 mb-1">Ngày xử lý / lập biên bản</label>
-                        <input type="text" name="processingDate" value={extractedData.processingDate || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" placeholder="VD: ngày 15 tháng 08 năm 2026" />
+                        <input type="text" name="processingDate" value={extractedData.processingDate || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" placeholder="VD: ngày       tháng       năm 2026" />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-slate-500 mb-1">Cơ quan công chứng</label>
+                        <input type="text" name="notaryOffice" value={extractedData.notaryOffice || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" placeholder="VD: UBND xã Kỳ Anh" />
                       </div>
                     </div>
                   </div>
@@ -244,6 +248,10 @@ export default function TabChuyenQuyen() {
                       <div>
                         <label className="block text-xs text-slate-500 mb-1">Ngày cấp GCN</label>
                         <input type="text" name="gcnDate" value={extractedData.gcnDate || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                      </div>
+                      <div className="col-span-2">
+                        <label className="block text-xs text-slate-500 mb-1">Cơ quan cấp GCN</label>
+                        <input type="text" name="gcnIssuer" value={extractedData.gcnIssuer || ''} onChange={handleInputChange} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" placeholder="VD: UBND huyện Kỳ Anh, Sở Tài nguyên và Môi trường" />
                       </div>
                       <div>
                         <label className="block text-xs text-slate-500 mb-1">Thửa đất số</label>
@@ -303,7 +311,7 @@ export default function TabChuyenQuyen() {
                       </div>
                       <div className="col-span-2">
                         <label className="block text-xs text-slate-500 mb-1">Ghi chú</label>
-                        <textarea name="notes" value={extractedData.notes || ''} onChange={handleInputChange as any} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" rows={3} />
+                        <textarea name="notes" value={extractedData.notes || ''} onChange={handleInputChange as any} className="w-full text-sm p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" rows={5} placeholder="VD: Thửa đất có 132,2 m² nằm trong chỉ giới QHGT&#10;Theo Giấy xác nhận tình trạng hôn nhân số 99/UBND-XNTTHN ngày 13/7/2023 của UBND xã Kỳ Khang, thửa đất là tài sản riêng của bà Nguyễn Thị Nga.&#10;Theo Văn bản thỏa thuận về tài sản riêng của vợ chồng trong thời kỳ hôn nhân số 2160/2025, quyển số 01/TP/CC-SCC/HĐGD/VBTT của Văn phòng Công chứng Kỳ Anh chứng thực ngày 08/5/2025, thửa đất là tài sản riêng của ông (bà) Phạm Thái Hà.&#10;Thửa đất chưa được xác định là tài sản riêng&#10;Số thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp" />
                       </div>
                     </div>
                   </div>
@@ -418,7 +426,7 @@ export default function TabChuyenQuyen() {
                       <p className="font-bold whitespace-nowrap" style={{ fontSize: `${previewFontSize - 1}pt` }}>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
                       <p className="font-bold border-b-[1.5px] border-black pb-0.5 inline-block whitespace-nowrap" style={{ fontSize: `${previewFontSize}pt` }}>Độc lập - Tự do - Hạnh phúc</p>
                       <p className="italic mt-2 whitespace-nowrap" style={{ fontSize: `${previewFontSize}pt` }}>
-                        Kỳ Anh, {extractedData?.processingDate || "ngày      tháng     năm 2026"}
+                        Kỳ Anh, {extractedData?.processingDate || "ngày       tháng       năm 2026"}
                       </p>
                     </div>
                   </div>
@@ -434,8 +442,8 @@ export default function TabChuyenQuyen() {
 
                   <p className="font-bold mb-1">1. Thành phần hồ sơ gồm:</p>
                   <p className="mb-1">- Đơn đăng ký biến động đất đai, tài sản gắn liền với đất;</p>
-                  <p className="mb-1">- Hợp đồng chuyển quyền SD đất đã được ........................ công chứng, chứng thực.</p>
-                  <p className="mb-2">- Giấy chứng nhận QSD đất số phát hành: <span className="font-semibold">{extractedData?.gcnNumber || "........................"}</span> do ........................ cấp ngày: <span className="font-bold">{extractedData?.gcnDate || "........................"}</span>.</p>
+                  <p className="mb-1">- Hợp đồng chuyển quyền SD đất đã được <span className="font-semibold">{extractedData?.notaryOffice || "........................"}</span> công chứng, chứng thực.</p>
+                  <p className="mb-2">- Giấy chứng nhận QSD đất số phát hành: <span className="font-semibold">{extractedData?.gcnNumber || "........................"}</span> do <span className="font-semibold">{extractedData?.gcnIssuer || "........................"}</span> cấp ngày: <span className="font-bold">{extractedData?.gcnDate || "........................"}</span>.</p>
 
                   <p className="font-bold mb-1">2. Thông tin thửa đất chuyển quyền:</p>
                   <p className="mb-1">- Thửa đất số: <span className="font-semibold">{extractedData?.parcelNumber || ".........."}</span>; tờ bản đồ số: <span className="font-semibold">{extractedData?.mapSheetNumber || ".........."}</span>;</p>
@@ -449,8 +457,8 @@ export default function TabChuyenQuyen() {
                   <p className="mb-1">- Nguồn gốc sử dụng: <span className="font-semibold">{extractedData?.origin || "Được tặng cho đất được, Nhận chuyển nhượng đất được, Nhận thừa kế đất được"}</span></p>
                   <p className="mb-1 ml-8">+ Đất ở: <span className="font-semibold">{extractedData?.residentialArea || ".........."}</span> m<sup>2</sup>: <span className="font-semibold">{extractedData?.residentialOrigin || ""}</span></p>
                   <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || ".........."}</span> m<sup>2</sup>: <span className="font-semibold">{extractedData?.agriculturalOrigin || ""}</span></p>
-                  <div className="mb-4 text-red-600">
-                    <span className="font-bold">Ghi chú:</span> <span className="italic">{extractedData?.notes || "Thửa đất có 132,2 m2 nằm trong chỉ giới QHGT\nTheo Giấy xác nhận tình trạng hôn nhân số 99/UBND-XNTTHN ngày 13/7/2023 của UBND xã Kỳ Khang, thửa đất là tài sản riêng của bà Nguyễn Thị Nga.\nTheo Văn bản thỏa thuận về tài sản riêng của vợ chồng trong thời kỳ hôn nhân số 2160/2025, quyển số 01/TP/CC-SCC/HĐGD/VBTT của Văn phòng Công chứng Kỳ Anh chứng thực ngày 08/5/2025, thửa đất là tài sản riêng của ông (bà) Phạm Thái Hà.\nThửa đất chưa được xác định là tài sản riêng\nSố thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp"}</span>
+                  <div className="mb-4 text-red-600 whitespace-pre-wrap">
+                    <span className="font-bold">Ghi chú:</span> <span className="italic">{extractedData?.notes || "Thửa đất có 132,2 m² nằm trong chỉ giới QHGT\nTheo Giấy xác nhận tình trạng hôn nhân số 99/UBND-XNTTHN ngày 13/7/2023 của UBND xã Kỳ Khang, thửa đất là tài sản riêng của bà Nguyễn Thị Nga.\nTheo Văn bản thỏa thuận về tài sản riêng của vợ chồng trong thời kỳ hôn nhân số 2160/2025, quyển số 01/TP/CC-SCC/HĐGD/VBTT của Văn phòng Công chứng Kỳ Anh chứng thực ngày 08/5/2025, thửa đất là tài sản riêng của ông (bà) Phạm Thái Hà.\nThửa đất chưa được xác định là tài sản riêng\nSố thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp"}</span>
                   </div>
 
                   <p className="font-bold mb-2">- Thông tin tài sản: ................................................................................................</p>
@@ -499,13 +507,13 @@ export default function TabChuyenQuyen() {
 
                   <div className="flex justify-between text-center mt-8 break-inside-avoid">
                     <div className="w-1/2 flex flex-col items-center">
-                      <p className="italic">Hà Tĩnh, {extractedData?.processingDate || "ngày      tháng     năm 2026"}</p>
+                      <p className="italic">Kỳ Anh, {extractedData?.processingDate || "ngày       tháng       năm 2026"}</p>
                       <p className="font-bold">Người thẩm tra</p>
                       <div className="h-24"></div>
                       <p className="font-bold"> </p>
                     </div>
                     <div className="w-1/2 flex flex-col items-center">
-                      <p className="italic">Hà Tĩnh, {extractedData?.processingDate || "ngày      tháng     năm 2026"}</p>
+                      <p className="italic">Kỳ Anh, {extractedData?.processingDate || "ngày       tháng       năm 2026"}</p>
                       <p className="font-bold">Người phụ trách</p>
                       <div className="h-24"></div>
                       <p className="font-bold">Hoàng Thị Lệ Trinh</p>
@@ -609,7 +617,7 @@ export default function TabChuyenQuyen() {
                     <p className="font-bold whitespace-nowrap" style={{ fontSize: `${previewFontSize - 1}pt` }}>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
                     <p className="font-bold border-b-[1.5px] border-black pb-0.5 inline-block whitespace-nowrap" style={{ fontSize: `${previewFontSize}pt` }}>Độc lập - Tự do - Hạnh phúc</p>
                     <p className="italic mt-2 whitespace-nowrap" style={{ fontSize: `${previewFontSize}pt` }}>
-                      Kỳ Anh, {extractedData?.processingDate || "ngày      tháng     năm 2026"}
+                      Kỳ Anh, {extractedData?.processingDate || "ngày       tháng       năm 2026"}
                     </p>
                   </div>
                 </div>
@@ -641,7 +649,7 @@ export default function TabChuyenQuyen() {
                 <p className="mb-1 ml-8">+ Đất ở: <span className="font-semibold">{extractedData?.residentialArea || ".........."}</span> m<sup>2</sup>: <span className="font-semibold">{extractedData?.residentialOrigin || ""}</span></p>
                 <p className="mb-1 ml-8">+ Đất trồng cây lâu năm: <span className="font-semibold">{extractedData?.agriculturalArea || ".........."}</span> m<sup>2</sup>: <span className="font-semibold">{extractedData?.agriculturalOrigin || ""}</span></p>
                 <div className="mb-4 text-red-600">
-                  <span className="font-bold">Ghi chú:</span> <span className="italic whitespace-pre-line">{extractedData?.notes || "Thửa đất có 132,2 m2 nằm trong chỉ giới QHGT\nTheo Giấy xác nhận tình trạng hôn nhân số 99/UBND-XNTTHN ngày 13/7/2023 của UBND xã Kỳ Khang, thửa đất là tài sản riêng của bà Nguyễn Thị Nga.\nTheo Văn bản thỏa thuận về tài sản riêng của vợ chồng trong thời kỳ hôn nhân số 2160/2025, quyển số 01/TP/CC-SCC/HĐGD/VBTT của Văn phòng Công chứng Kỳ Anh chứng thực ngày 08/5/2025, thửa đất là tài sản riêng của ông (bà) Phạm Thái Hà.\nThửa đất chưa được xác định là tài sản riêng\nSố thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp"}</span>
+                  <span className="font-bold">Ghi chú:</span> <span className="italic whitespace-pre-line">{extractedData?.notes || "Thửa đất có 132,2 m² nằm trong chỉ giới QHGT\nTheo Giấy xác nhận tình trạng hôn nhân số 99/UBND-XNTTHN ngày 13/7/2023 của UBND xã Kỳ Khang, thửa đất là tài sản riêng của bà Nguyễn Thị Nga.\nTheo Văn bản thỏa thuận về tài sản riêng của vợ chồng trong thời kỳ hôn nhân số 2160/2025, quyển số 01/TP/CC-SCC/HĐGD/VBTT của Văn phòng Công chứng Kỳ Anh chứng thực ngày 08/5/2025, thửa đất là tài sản riêng của ông (bà) Phạm Thái Hà.\nThửa đất chưa được xác định là tài sản riêng\nSố thửa, số tờ bản đồ đang sử dụng theo bản đồ địa chính thị trấn Kỳ Đồng trước khi sắp xếp"}</span>
                 </div>
 
                 <p className="font-bold mb-2">- Thông tin tài sản: ................................................................................................</p>
@@ -690,13 +698,13 @@ export default function TabChuyenQuyen() {
 
                 <div className="flex justify-between text-center mt-8 break-inside-avoid">
                   <div className="w-1/2 flex flex-col items-center">
-                    <p className="italic">Hà Tĩnh, {extractedData?.processingDate || "ngày      tháng     năm 2026"}</p>
+                    <p className="italic">Kỳ Anh, {extractedData?.processingDate || "ngày       tháng       năm 2026"}</p>
                     <p className="font-bold">Người thẩm tra</p>
                     <div className="h-24"></div>
                     <p className="font-bold"> </p>
                   </div>
                   <div className="w-1/2 flex flex-col items-center">
-                    <p className="italic">Hà Tĩnh, {extractedData?.processingDate || "ngày      tháng     năm 2026"}</p>
+                    <p className="italic">Kỳ Anh, {extractedData?.processingDate || "ngày       tháng       năm 2026"}</p>
                     <p className="font-bold">Người phụ trách</p>
                     <div className="h-24"></div>
                     <p className="font-bold">Hoàng Thị Lệ Trinh</p>

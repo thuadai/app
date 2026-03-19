@@ -11,6 +11,15 @@ export async function exportToWord(
   // Convert mm to twips (1 mm = 56.7 twips)
   const mmToTwips = (mm: number) => Math.round(mm * 56.7);
 
+  // Replace m2 with m² in all string fields
+  const processedData: any = { ...data };
+  for (const key in processedData) {
+    if (typeof processedData[key] === 'string') {
+      processedData[key] = processedData[key].replace(/m2/g, 'm²');
+    }
+  }
+  data = processedData as ExtractedData;
+
   const doc = new Document({
     styles: {
       default: {

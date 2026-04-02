@@ -91,6 +91,23 @@ function startOfMonthISO(date: Date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01`;
 }
 
+function formatDateISO(date: Date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function endOfMonthISO(date: Date) {
+  return formatDateISO(new Date(date.getFullYear(), date.getMonth() + 1, 0));
+}
+
+function endOfQuarterISO(date: Date) {
+  const quarterEndMonth = Math.floor(date.getMonth() / 3) * 3 + 2;
+  return formatDateISO(new Date(date.getFullYear(), quarterEndMonth + 1, 0));
+}
+
+function endOfYearISO(date: Date) {
+  return `${date.getFullYear()}-12-31`;
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'invoice' | 'inventory' | 'tax'>('dashboard');
   const [invoices, setInvoices] = useState<Invoice[]>(SAMPLE_INVOICES);
@@ -107,6 +124,7 @@ export default function App() {
   });
 
   const today = new Date();
+  const todayISO = formatDateISO(today);
 
   const computedInvoices = useMemo(
     () =>
@@ -190,15 +208,19 @@ export default function App() {
   const periodReport = useMemo(() => {
     const getPeriod = (periodType: 'month' | 'quarter' | 'year') => {
       let from = startOfMonthISO(today);
+      let endOfPeriod = endOfMonthISO(today);
       if (periodType === 'quarter') {
         const quarterStartMonth = Math.floor(today.getMonth() / 3) * 3;
         from = `${today.getFullYear()}-${String(quarterStartMonth + 1).padStart(2, '0')}-01`;
+        endOfPeriod = endOfQuarterISO(today);
       }
       if (periodType === 'year') {
         from = startOfYearISO(today);
+        endOfPeriod = endOfYearISO(today);
       }
 
-      const items = computedInvoices.filter((invoice) => invoice.date >= from);
+      const to = endOfPeriod < todayISO ? endOfPeriod : todayISO;
+      const items = computedInvoices.filter((invoice) => invoice.date >= from && invoice.date <= to);
       const sale = items.filter((it) => it.type === 'sale');
       const purchase = items.filter((it) => it.type === 'purchase');
 
@@ -210,6 +232,7 @@ export default function App() {
 
       return {
         from,
+        to,
         count: items.length,
         revenue,
         expense,
